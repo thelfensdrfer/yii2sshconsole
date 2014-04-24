@@ -18,7 +18,7 @@
             "yii2sshconsole\\": "src/"
         },
         "files": [
-            "/vendor/phpseclib/phpseclib/phpseclib/Net/SSH2.php"
+            "../../phpseclib/phpseclib/phpseclib/Net/SSH2.php"
         ]
     }
 }
