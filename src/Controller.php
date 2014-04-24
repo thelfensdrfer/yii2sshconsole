@@ -1,9 +1,7 @@
-<?php
+<?php namespace yii2sshconsole;
 
 if (defined('YII_ENV'))
 	define('NET_SSH2_LOG_SIMPLE', NET_SSH2_LOG_COMPLEX);
-
-namespace thelfensdrfer\yii2sshconsole;
 
 use \Yii;
 
@@ -35,8 +33,8 @@ class Controller extends \yii\console\Controller
 	 * @param integer $port Default 22
 	 * @param integer $timeout Default 10 seconds
 	 *
-	 * @throws \thelfensdrfer\yii2sshconsole\LoginFailedException If the login failes
-	 * @throws \thelfensdrfer\yii2sshconsole\LoginUnknownException If no username is set
+	 * @throws \yii2sshconsole\LoginFailedException If the login failes
+	 * @throws \yii2sshconsole\LoginUnknownException If no username is set
 	 *
 	 * @return bool
 	 */
