@@ -8,8 +8,9 @@
             "email": "tim@visualappeal.de"
         }
     ],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "require": {
+        "yiisoft/yii2": "*",
         "phpseclib/phpseclib": "0.3.*"
     }
 }
