@@ -11,9 +11,12 @@ class NotConnectedException extends \Exception {}
 
 class Controller extends \yii\console\Controller
 {
+	/**
+	 * Store of the ssh session.
+	 *
+	 * @var \Net_SSH2
+	 */
 	private $ssh = null;
-
-	private $callback = null;
 
 	/**
 	 * Connect to the ssh server.
@@ -38,7 +41,7 @@ class Controller extends \yii\console\Controller
 	 *
 	 * @return bool
 	 */
-	public function connect($host, $auth, $callback = null, $port = 22, $timeout = 10)
+	public function connect($host, $auth, $port = 22, $timeout = 10)
 	{
 		$this->ssh = new \Net_SSH2($host, $port, $timeout);
 
@@ -65,7 +68,7 @@ class Controller extends \yii\console\Controller
 			$username = $auth['username'];
 			$password = isset($auth['key_password']) ? $auth['key_password'] : '';
 
-			$key = new Crypt_RSA();
+			$key = new \Crypt_RSA();
 			if (!empty($password)) {
 				$key->setPassword($password);
 			}
@@ -95,21 +98,50 @@ class Controller extends \yii\console\Controller
 	}
 
 	/**
+	 * Read the next line from the SSH session.
+	 *
+	 * @return string|null
+	 */
+	public function readLine()
+	{
+		$output = $this->ssh->_get_channel_packet(NET_SSH2_CHANNEL_EXEC);
+
+		return $output === true ? null : $output;
+	}
+
+	/**
 	 * Run a ssh command for the current connection.
 	 *
-	 * @param string $command
+	 * @param string|array $commands
 	 * @param callable $callback
 	 *
 	 * @throws NotConnectedException If the client is not connected to the server
 	 *
 	 * @return string
 	 */
-	public function run($command, $callback = null)
+	public function run($commands, $callback = null)
 	{
 		if (!$this->ssh->isConnected())
 			throw new NotConnectedException();
 
-		return $this->ssh->write($command);
+		if (is_array($commands))
+			$commands = implode(' && ', $commands);
+
+		if ($callback === null)
+			$output = '';
+
+		$this->ssh->exec($commands, false);
+
+		while (true) {
+			if (is_null($line = $this->readLine())) break;
+
+			if ($callback === null)
+				$output .= $line;
+			else
+				call_user_func($callback, $line, $this);
+		}
+
+		return $output;
 	}
 
 	/**
