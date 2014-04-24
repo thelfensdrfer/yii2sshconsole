@@ -41,5 +41,6 @@ Controller with ssh commands for the yii2 console.
 		}
 	}
 
+And then in the local console:
 
 	./yii deploy/exec
