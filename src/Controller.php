@@ -1,7 +1,7 @@
 <?php namespace yii2sshconsole;
 
 if (defined('YII_ENV'))
-	define('NET_SSH2_LOG_SIMPLE', NET_SSH2_LOG_COMPLEX);
+	define('NET_SSH2_LOGGING', NET_SSH2_LOG_SIMPLE);
 
 use \Yii;
 
