@@ -15,7 +15,7 @@
     },
     "autoload": {
         "psr-0": {
-            "\\thelfensdrfer\\yii2sshconsole": "./src"
+            "thelfensdrfer\\yii2sshconsole\\": "src/"
         }
     }
 }
