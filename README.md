@@ -10,6 +10,8 @@ Controller with ssh commands for the yii2 console.
 
 	class DeployController extends Controller
 	{
+		public $defaultAction = 'exec';
+
 		public function actionExec()
 		{
 			$this->auth('example.com', [
@@ -34,7 +36,7 @@ Controller with ssh commands for the yii2 console.
 				'./put_offline.sh',
 				'git pull -f',
 				'composer install',
-				'./yii migrate',
+				'./yii migrate --interactive=0',
 				'./build.sh',
 				'./put_online.sh',
 			]);
@@ -45,7 +47,7 @@ Controller with ssh commands for the yii2 console.
 				'./put_offline.sh',
 				'git pull -f',
 				'composer install',
-				'./yii migrate',
+				'./yii migrate --interactive=0',
 				'./build.sh',
 				'./put_online.sh',
 			], function($line) {
@@ -56,4 +58,4 @@ Controller with ssh commands for the yii2 console.
 
 And then in the local console:
 
-	./yii deploy/exec
+	./yii deploy
