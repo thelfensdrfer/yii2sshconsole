@@ -48,7 +48,7 @@ Controller with ssh commands for the yii2 console.
 				'./yii migrate',
 				'./build.sh',
 				'./put_online.sh',
-			] function($line) {
+			], function($line) {
 				echo $line;
 			});
 		}
