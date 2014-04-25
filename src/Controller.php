@@ -117,7 +117,7 @@ class Controller extends \yii\console\Controller
 	 *
 	 * @throws NotConnectedException If the client is not connected to the server
 	 *
-	 * @return string
+	 * @return string|null
 	 */
 	public function run($commands, $callback = null)
 	{
@@ -141,7 +141,10 @@ class Controller extends \yii\console\Controller
 				call_user_func($callback, $line, $this);
 		}
 
-		return $output;
+		if ($callback === null)
+			return $output;
+		else
+			return null;
 	}
 
 	/**
