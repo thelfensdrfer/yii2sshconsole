@@ -38,6 +38,7 @@ Controller with ssh commands for the yii2 console.
 				'composer install',
 				'./yii migrate --interactive=0',
 				'./build.sh',
+				'./yii cache/flush',
 				'./put_online.sh',
 			]);
 
@@ -49,6 +50,7 @@ Controller with ssh commands for the yii2 console.
 				'composer install',
 				'./yii migrate --interactive=0',
 				'./build.sh',
+				'./yii cache/flush',
 				'./put_online.sh',
 			], function($line) {
 				echo $line;
