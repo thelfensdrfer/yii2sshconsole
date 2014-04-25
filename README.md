@@ -6,7 +6,7 @@ Controller with ssh commands for the yii2 console.
 
 	<?php namespace app\commands;
 
-	use \thelfensdrfer\yii2sshconsole\Controller;
+	use \yii2sshconsole\Controller;
 
 	class DeployController extends Controller
 	{
@@ -38,6 +38,19 @@ Controller with ssh commands for the yii2 console.
 				'./build.sh',
 				'./put_online.sh',
 			]);
+
+			// Or via callback
+			$this->run([
+				'cd /path/to/install',
+				'./put_offline.sh',
+				'git pull -f',
+				'composer install',
+				'./yii migrate',
+				'./build.sh',
+				'./put_online.sh',
+			] function($line) {
+				echo $line;
+			});
 		}
 	}
 
