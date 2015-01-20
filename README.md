@@ -14,14 +14,14 @@ Controller with ssh commands for the yii2 console.
 
 		public function actionExec()
 		{
-			$this->auth('example.com', [
+			$this->connect('example.com', [
 				'username' => 'myusername',
 				'password' => 'mypassword', // optional
 			]);
 
 			// Or via private key
 			/*
-			$this->auth('example.com', [
+			$this->connect('example.com', [
 				'username' => 'myusername',
 				'key' => '/path/to/private.key',
 				'password' => 'mykeypassword', // optional
