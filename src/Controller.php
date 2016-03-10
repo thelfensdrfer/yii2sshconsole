@@ -4,6 +4,8 @@ if (defined('YII_ENV'))
 	define('NET_SSH2_LOGGING', NET_SSH2_LOG_SIMPLE);
 
 use \Yii;
+use phpseclib\Net_SSH2;
+use phpseclib\Crypt_RSA;
 
 class LoginFailedException extends \Exception {}
 class LoginUnknownException extends \Exception {}
@@ -14,7 +16,7 @@ class Controller extends \yii\console\Controller
 	/**
 	 * Store of the ssh session.
 	 *
-	 * @var \Net_SSH2
+	 * @var Net_SSH2
 	 */
 	private $ssh = null;
 
@@ -43,7 +45,7 @@ class Controller extends \yii\console\Controller
 	 */
 	public function connect($host, $auth, $port = 22, $timeout = 10)
 	{
-		$this->ssh = new \Net_SSH2($host, $port, $timeout);
+		$this->ssh = new Net_SSH2($host, $port, $timeout);
 
 		if (!isset($auth['key']) && isset($auth['username'])) {
 			// Login via username/password
@@ -68,7 +70,7 @@ class Controller extends \yii\console\Controller
 			$username = $auth['username'];
 			$password = isset($auth['key_password']) ? $auth['key_password'] : '';
 
-			$key = new \Crypt_RSA();
+			$key = new Crypt_RSA();
 			if (!empty($password)) {
 				$key->setPassword($password);
 			}
