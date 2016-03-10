@@ -103,7 +103,7 @@ class Controller extends \yii\console\Controller
 	 */
 	public function readLine()
 	{
-		$output = $this->ssh->_get_channel_packet(NET_SSH2_CHANNEL_EXEC);
+		$output = $this->ssh->_get_channel_packet(SSH2::CHANNEL_EXEC);
 
 		return $output === true ? null : $output;
 	}
